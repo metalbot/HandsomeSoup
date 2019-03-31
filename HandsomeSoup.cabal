@@ -33,6 +33,9 @@ library
                     , mtl
                     , hxt
                     , hxt-http
+                    , http-io-streams
+                    , HsOpenSSL
+                    , bytestring
   if flag(network-uri)
     Build-depends:      network >= 2.6
                       , network-uri >= 2.6

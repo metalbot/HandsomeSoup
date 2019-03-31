@@ -1,7 +1,9 @@
 module Text.HandsomeSoup (openUrl, fromUrl, parseHtml, (!), css) where
 
+import Network.Http.Client
+import OpenSSL
+import qualified Data.ByteString.Char8 as S
 import Text.XML.HXT.Core
-import Network.HTTP
 import Network.URI
 import Data.Tree.NTree.TypeDefs
 import Control.Monad.Trans.Maybe
@@ -24,7 +26,12 @@ import Text.XML.HXT.HTTP
 openUrl :: String -> MaybeT IO String
 openUrl url = case parseURI url of
     Nothing -> fail "couldn't parse url"
-    Just u  -> liftIO (getResponseBody =<< simpleHTTP (mkRequest GET u))
+    Just u  -> liftIO (makeGetRequest url)
+
+makeGetRequest :: String -> IO String
+makeGetRequest url = withOpenSSL $ do
+    contents <- get (S.pack url) concatHandler
+    return $ S.unpack contents
 
 -- | Given a url, returns a document. Example:
 --
