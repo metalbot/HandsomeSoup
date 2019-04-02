@@ -18,7 +18,7 @@ import Data.List
 import Control.Monad
 import Text.CSS.Parser hiding (css)
 import Text.XML.HXT.Arrow.ReadDocument
-import Text.XML.HXT.HTTP
+import Text.XML.HXT.Curl
 
 -- | Helper function for getting page content. Example:
 --
@@ -41,7 +41,7 @@ fromUrl :: String -> IOSArrow b (NTree XNode)
 fromUrl url = readDocument [withValidate        no,
                             withInputEncoding   utf8,
                             withParseByMimeType yes,
-                            withHTTP            [],
+                            withCurl            [],
                             withWarnings        no] url
 
 -- | Given a string, parses it and returns a document. Example:

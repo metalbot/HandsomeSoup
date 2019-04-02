@@ -32,7 +32,7 @@ library
                     , containers
                     , mtl
                     , hxt
-                    , hxt-http
+                    , hxt-curl
                     , http-io-streams
                     , HsOpenSSL
                     , bytestring
